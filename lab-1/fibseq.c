@@ -11,4 +11,12 @@ int main(int argc, char **argv)
   result = fibonacci(number);   
   printf("The fibonacci sequence at %d is: %d\n", number, result);
 }
+/* 
+int fibonacci(int x){
 
+	if(x < 3)
+		return 1;
+	else
+		return fibonacci(x-1) + fibonacci(x-2);
+}
+*/
