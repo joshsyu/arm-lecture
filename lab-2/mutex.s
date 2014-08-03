@@ -8,8 +8,14 @@
 	.global lock_mutex
 	.type lock_mutex, function
 lock_mutex:
-        @ INSERT CODE BELOW
-
+        ldr r2, =locked
+		@ INSERT CODE BELOW
+try:	ldrex r1, [r0]
+		cmp r1, #0
+		strexeq r1, r2, [r0]  
+		cmpeq r1, #0
+		bne try	
+		
         @ END CODE INSERT
 	bx lr
 
@@ -19,7 +25,8 @@ lock_mutex:
 	.type unlock_mutex, function
 unlock_mutex:
 	@ INSERT CODE BELOW
-        
+    ldr r2, =unlocked
+	str r2, [r0]    
         @ END CODE INSERT
 	bx lr
 	.size unlock_mutex, .-unlock_mutex
