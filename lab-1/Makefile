@@ -1,14 +1,21 @@
+#CC = gcc
 CC	= arm-linux-gnueabihf-gcc
 CFLAGS	= -O1 -Wall
 LDFLAGS = -fno-stack-protector
 
-objects	= fibseq.o fib.o
+#objects	= fibseq.o fib.o
 
 default: fibseq
 
 .PHONY: default clean qemu
 
+ifeq ($(CC), gcc)
+ objects = fibseq.o
+else
+ objects = fibseq.o fib.o
+endif
 fibseq: $(objects)
+	echo $(objects)
 	$(CC) $(LDFLAGS) -o $@ $^
 
 fib.o: fib.s
